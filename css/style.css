@@ -1,0 +1,112 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+    font-family: "Poppins";
+  }
+
+  .intro-text {
+    text-align: center;
+    padding: 20px;
+  }
+
+.intro-text h1, .intro-text p {
+    margin:0px;
+}
+
+.code-boxes {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.code-box {
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    transition: .5s;
+}
+
+.code-box img {
+    width: 200px;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+}
+
+.code-snippet-container {
+    padding: 15px;
+    position: relative;
+}
+
+.code-snippet-container::after {
+    content: "";
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(0deg, rgb(255 255 255) 0%, rgb(255 255 255 / 0%) 50%);
+    pointer-events: none;
+}
+
+.code-snippet {
+    width: 200px;
+    text-wrap:wrap;
+    aspect-ratio: 1 / 1;
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    margin: 0px;
+    font-size: 12px;
+}
+
+.code-title-section {
+    font-weight: bold;
+    text-align: center;
+    font-size: 22px;
+    margin: 0px;
+    display: block;
+    width: 100%;
+    background: #424242;
+    padding: 10px 0px;
+    color: #fff;
+}
+
+.code-title {
+    margin: 0px;
+}
+
+.copied {
+    transform: scale(1.1);
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 25px 40px;
+    transition: .3s;
+}
+
+.copied-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.701);
+    color: #fff;
+    text-shadow: 0px 0px 15px rgba(0,0,0,0.5);
+    backdrop-filter: blur(5px);
+    font-size: 30px;
+    text-transform: uppercase;
+    box-shadow:lightgreen 0px 0px 100px inset;
+    pointer-events: none;
+
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    font-weight: bold;
+    opacity: 0;
+    transition: .3s;
+}
+
+.copied .copied-overlay {
+    opacity: 1;
+}
