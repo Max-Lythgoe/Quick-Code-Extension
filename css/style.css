@@ -18,11 +18,13 @@
     padding: 20px;
     gap: 10px;
     flex-wrap: wrap;
+    max-width: 550px;
+    margin: auto;
 }
 
 .code-box {
     border-radius: 20px;
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     overflow: hidden;
     cursor: pointer;
     position: relative;
@@ -59,12 +61,12 @@
 .code-title-section {
     font-weight: bold;
     text-align: center;
-    font-size: 22px;
+    font-size: 20px;
     margin: 0px;
     display: block;
     width: 100%;
-    background: #424242;
-    padding: 10px 0px;
+    background: #636363;
+    padding: 10px;
     color: #fff;
 }
 
@@ -73,9 +75,8 @@
 }
 
 .copied {
-    transform: scale(1.1);
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 25px 40px;
     transition: .3s;
+    z-index: 5;
 }
 
 .copied-overlay {
