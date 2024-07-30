@@ -29,12 +29,6 @@
     transition: .5s;
 }
 
-.code-box img {
-    width: 200px;
-    aspect-ratio: 1 / 1;
-    object-fit: contain;
-}
-
 .code-snippet-container {
     padding: 15px;
     position: relative;
