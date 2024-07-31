@@ -1,10 +1,13 @@
 import { codeSnippets } from "./code-snippets.js";
+const newSnippetForm = document.getElementById('add-snippet')
 
-console.log(codeSnippets)
-
+// create codeboxes for snippets 
 function getCodeBoxesHtml(codeArray) {
   if (Array.isArray(codeArray)) {
     console.log(`Array is ${Array.isArray(codeArray)}`);
+
+    // Sort the array so that items with isFavorite true come first
+    codeArray.sort((a, b) => b.isFavorite - a.isFavorite);
 
     return codeArray
       .map(function ({ title, codeCopy, isFavorite }, index) {
@@ -26,6 +29,8 @@ function getCodeBoxesHtml(codeArray) {
   }
 }
 
+
+// properly display html
 function escapeHtml(text) {
   var map = {
     '&': '&amp;',
@@ -38,10 +43,14 @@ function escapeHtml(text) {
   return text.replace(/[&<>"']/g, function(m) { return map[m]; });
 }
 
+
+// click to copy code
 function copyCode(code) {
   navigator.clipboard.writeText(code); 
 }
 
+
+// display snippets
 document.getElementById("container").innerHTML = getCodeBoxesHtml(codeSnippets);
 
 codeSnippets.forEach(({ codeCopy }, index) => {
@@ -59,4 +68,42 @@ codeSnippets.forEach(({ codeCopy }, index) => {
     
   
 });
+
+
+// add new snippet  
+newSnippetForm.addEventListener('submit', function(e){
+  e.preventDefault();
   
+  const snippetFormData = new FormData(newSnippetForm);
+  const snippetTitle = snippetFormData.get('snippetTitle');
+  const snippetCode = snippetFormData.get('snippetCode'); 
+  const isFavorite = snippetFormData.get('isFavorite') === 'on';
+  
+  
+  const newSnippet = {
+    id: codeSnippets.length + 1,
+    title: snippetTitle,
+    isFavorite: isFavorite,
+    codeCopy: snippetCode
+  };
+  
+
+  codeSnippets.push(newSnippet);
+  
+  // Update the HTML
+  document.getElementById("container").innerHTML = getCodeBoxesHtml(codeSnippets);
+  
+  // Add event listener for the new snippet
+  const newElement = document.getElementById(`code-box-${codeSnippets.length - 1}`);
+  newElement.addEventListener('click', function() { 
+    copyCode(newSnippet.codeCopy);
+    newElement.classList.add('copied');
+    setTimeout(() => {
+      newElement.classList.remove('copied');
+    }, 3000);
+  });
+});
+
+function favoriteCodeBox() {
+
+}

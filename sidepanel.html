@@ -18,8 +18,14 @@
     </div>
 
     <section class="code-boxes" id="container"></section>
-    <i class="fa-regular fa-star"></i>
-      <i class="fa-solid fa-star"></i>
+    
+    <form id="add-snippet">
+      <input id="snippet-title" type="text" name="snippetTitle" placeholder="Enter Title" required/>
+			<textarea id="snippet-text" type="textarea" name="snippetCode" placeholder="code goes here!" required/></textarea>
+      <input type="checkbox" name="isFavorite">
+
+			<button type="submit" id="submit-snippet">Add</button>
+    </form>
 
 
       

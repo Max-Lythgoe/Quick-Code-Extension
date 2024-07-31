@@ -70,6 +70,10 @@
     color: #fff;
 }
 
+.true .code-title-section {
+    background: #5e8bd2;
+}
+
 .code-title {
     margin: 0px;
 }
@@ -104,4 +108,38 @@
 
 .copied .copied-overlay {
     opacity: 1;
+}
+
+/* form */
+
+#add-snippet {
+    max-width: 550px;
+    padding: 20px;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input, textarea {
+    border-radius: 10px;
+    border: 0px;
+    background: #ededed;
+    padding: 10px;
+    font-size: 18px;
+}
+
+button {
+    background: #89e189;
+    border: 0px;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: .3s;
+}
+
+button:hover {
+    background: #60a660;
 }

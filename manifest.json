@@ -18,16 +18,5 @@
   "side_panel": {
     "default_path": "sidepanel.html"
   },
-  "permissions": ["sidePanel"],
-  "content_scripts": [{
-     "css": [
-        "css/fontawesome.min.css",
-        "css/regular.min.css"
-     ]
-  }],
-  "web_accessible_resources": [
-    "css/fontawesome.min.css",
-    "css/regular.min.css",
-    "webfonts/fa-regular-400.woff2"
-  ]
+  "permissions": ["sidePanel"]
 }

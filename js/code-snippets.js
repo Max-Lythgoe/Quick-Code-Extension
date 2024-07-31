@@ -18,7 +18,7 @@ export const codeSnippets = [
     {
         id: 2,
         title: 'Escaping HTML ACF',
-        isFavorite: true,
+        isFavorite: false,
         codeCopy: 
         `// Allow script tags in ACF subfields
 add_filter('wp_kses_allowed_html', 'acf_allow_script_tags', 10, 2);
