@@ -12,20 +12,29 @@
 
   </head>
   <body>
-    <div class="intro-text">
-      <h1>Quick Code</h1>
-      <p>Click a box below to copy the code!</p>
+    <div class="wrap">
+      <div class="intro-text">
+        <h1>Quick Code</h1>
+        <p>Click a box below to copy the code!</p>
+      </div>
+
+      <section class="code-boxes" id="container"></section>
     </div>
 
-    <section class="code-boxes" id="container"></section>
-    
-    <form id="add-snippet">
-      <input id="snippet-title" type="text" name="snippetTitle" placeholder="Enter Title" required/>
-			<textarea id="snippet-text" type="textarea" name="snippetCode" placeholder="code goes here!" required/></textarea>
-      <input type="checkbox" name="isFavorite">
+    <div class="add-snippet-container">
+      <form id="add-snippet">
+        <label for="snippetTitle">Snippet Title</label>
+        <input type="text" name="snippetTitle" placeholder="Enter Title" required/>
 
-			<button type="submit" id="submit-snippet">Add</button>
-    </form>
+        <label for="snippetCode">Code Snippet:</label>
+        <textarea type="textarea" name="snippetCode" placeholder="code goes here!" required/></textarea>
+
+        <label for="isFavorite">Favorite?</label>
+        <input type="checkbox" name="isFavorite">
+
+        <button type="submit" id="submit-snippet">Add</button>
+      </form>
+    </div>
 
 
       

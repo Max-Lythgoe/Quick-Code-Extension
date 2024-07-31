@@ -3,9 +3,25 @@
     font-family: "Poppins";
   }
 
+:root {
+    --style-main: #a70000;
+    --style-sec: #ff0000;
+    --style-tri: #ff5252;
+    --style-quad: #ffbaba;
+    accent-color: #ff0000;
+
+    --shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.wrap {
+    max-width: 550px;
+    margin-inline: auto;
+    padding-bottom: 400px;
+}
+
   .intro-text {
     text-align: center;
-    padding: 20px;
+    padding: 20px 0px;
   }
 
 .intro-text h1, .intro-text p {
@@ -18,13 +34,11 @@
     padding: 20px;
     gap: 10px;
     flex-wrap: wrap;
-    max-width: 550px;
-    margin: auto;
 }
 
 .code-box {
     border-radius: 20px;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    box-shadow: var(--shadow);
     overflow: hidden;
     cursor: pointer;
     position: relative;
@@ -65,13 +79,13 @@
     margin: 0px;
     display: block;
     width: 100%;
-    background: #636363;
+    background: var(--style-tri);
     padding: 10px;
     color: #fff;
 }
 
 .true .code-title-section {
-    background: #5e8bd2;
+    background: var(--style-main);
 }
 
 .code-title {
@@ -112,25 +126,49 @@
 
 /* form */
 
+.add-snippet-container {
+    background: #ededed;
+    box-shadow: var(--shadow);
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    height: auto;
+}
+
 #add-snippet {
     max-width: 550px;
     padding: 20px;
     margin-inline: auto;
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     gap: 10px;
 }
 
 input, textarea {
     border-radius: 10px;
     border: 0px;
-    background: #ededed;
+    background: #bebebe;
     padding: 10px;
     font-size: 18px;
+    width: 100%;
+}
+
+::placeholder {
+    color: #000;
+    text-transform: capitalize;
+}
+
+input[type="checkbox"] {
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
 }
 
 button {
-    background: #89e189;
+    background: var(--style-sec);
+    color: #fff;
     border: 0px;
     border-radius: 10px;
     font-size: 20px;
@@ -138,8 +176,16 @@ button {
     text-transform: uppercase;
     cursor: pointer;
     transition: .3s;
+    width: 100%;
+    padding: 10px;
+}
+
+label {
+    font-weight: bold;
+    color: black;
+    font-size: 18px;
 }
 
 button:hover {
-    background: #60a660;
+    background: var(--style-tri);
 }

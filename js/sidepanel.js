@@ -1,7 +1,21 @@
-import { codeSnippets } from "./code-snippets.js";
-const newSnippetForm = document.getElementById('add-snippet')
+import { codeSnippets as initialCodeSnippets } from "./code-snippets.js";
+const newSnippetForm = document.getElementById('add-snippet');
 
-// create codeboxes for snippets 
+// Load code snippets from local storage
+function loadSnippets() {
+  const storedSnippets = localStorage.getItem('codeSnippets');
+  return storedSnippets ? JSON.parse(storedSnippets) : initialCodeSnippets;
+}
+
+// Save code snippets to local storage
+function saveSnippets(snippets) {
+  localStorage.setItem('codeSnippets', JSON.stringify(snippets));
+}
+
+// Initialize code snippets
+let codeSnippets = loadSnippets();
+
+// Create codeboxes for snippets 
 function getCodeBoxesHtml(codeArray) {
   if (Array.isArray(codeArray)) {
     console.log(`Array is ${Array.isArray(codeArray)}`);
@@ -29,8 +43,7 @@ function getCodeBoxesHtml(codeArray) {
   }
 }
 
-
-// properly display html
+// Properly display HTML
 function escapeHtml(text) {
   var map = {
     '&': '&amp;',
@@ -43,14 +56,12 @@ function escapeHtml(text) {
   return text.replace(/[&<>"']/g, function(m) { return map[m]; });
 }
 
-
-// click to copy code
+// Click to copy code
 function copyCode(code) {
   navigator.clipboard.writeText(code); 
 }
 
-
-// display snippets
+// Display snippets
 document.getElementById("container").innerHTML = getCodeBoxesHtml(codeSnippets);
 
 codeSnippets.forEach(({ codeCopy }, index) => {
@@ -64,13 +75,9 @@ codeSnippets.forEach(({ codeCopy }, index) => {
       element.classList.remove('copied');
     }, 3000);
     });
-  
-    
-  
 });
 
-
-// add new snippet  
+// Add new snippet  
 newSnippetForm.addEventListener('submit', function(e){
   e.preventDefault();
   
@@ -79,7 +86,6 @@ newSnippetForm.addEventListener('submit', function(e){
   const snippetCode = snippetFormData.get('snippetCode'); 
   const isFavorite = snippetFormData.get('isFavorite') === 'on';
   
-  
   const newSnippet = {
     id: codeSnippets.length + 1,
     title: snippetTitle,
@@ -87,8 +93,10 @@ newSnippetForm.addEventListener('submit', function(e){
     codeCopy: snippetCode
   };
   
-
   codeSnippets.push(newSnippet);
+  
+  // Save updated snippets to local storage
+  saveSnippets(codeSnippets);
   
   // Update the HTML
   document.getElementById("container").innerHTML = getCodeBoxesHtml(codeSnippets);
@@ -103,7 +111,3 @@ newSnippetForm.addEventListener('submit', function(e){
     }, 3000);
   });
 });
-
-function favoriteCodeBox() {
-
-}
