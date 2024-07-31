@@ -36,8 +36,8 @@ function getCodeBoxesHtml(codeArray) {
       </div>
     
     <div class="btns-container">
-        <button id="fav-btn">❤</button>
-        <button id="delete-btn">✖</button>
+        <button id="fav-btn-${index}" class="fav-btn">❤</button>
+        <button id="delete-btn-${index}" class="delete-btn">✖</button>
     </div>
     </div> 
     `;
@@ -67,20 +67,7 @@ function copyCode(code) {
 }
 
 // Display snippets
-document.getElementById("container").innerHTML = getCodeBoxesHtml(codeSnippets);
-
-codeSnippets.forEach(({ codeCopy }, index) => {
-    const element = document.getElementById(`code-inner-${index}`);
-    element.addEventListener('click', function() { 
-      copyCode(codeCopy);
-
-      element.classList.add('copied');
-  
-    setTimeout(() => {
-      element.classList.remove('copied');
-    }, 3000);
-    });
-});
+callAll()
 
 // Add new snippet  
 newSnippetForm.addEventListener('submit', function(e){
@@ -103,22 +90,59 @@ newSnippetForm.addEventListener('submit', function(e){
   // Save updated snippets to local storage
   saveSnippets(codeSnippets);
   
+  callAll()
+  
+});
+
+// call all snippets and add copy functionality
+function callAll() {
   // Update the HTML
   document.getElementById("container").innerHTML = getCodeBoxesHtml(codeSnippets);
   
   // Add event listener for the new snippet
-  const newElement = document.getElementById(`code-box-${codeSnippets.length - 1}`);
-  newElement.addEventListener('click', function() { 
-    copyCode(newSnippet.codeCopy);
-    newElement.classList.add('copied');
-    setTimeout(() => {
-      newElement.classList.remove('copied');
-    }, 3000);
+  codeSnippets.forEach(({ codeCopy }, index) => {
+      const element = document.getElementById(`code-inner-${index}`);
+      const deleteBtn = document.getElementById(`delete-btn-${index}`);
+      const favBtn = document.getElementById(`fav-btn-${index}`);
+
+      element.addEventListener('click', function() { 
+        copyCode(codeCopy);
+
+        element.classList.add('copied');
+    
+        setTimeout(() => {
+          element.classList.remove('copied');
+        }, 3000);
+      });
+
+      favBtn.addEventListener('click', function() {
+        // Toggle the isFavorite property
+        codeSnippets[index].isFavorite = !codeSnippets[index].isFavorite;
+        
+        // Save updated snippets to local storage
+        saveSnippets(codeSnippets);
+        
+        // Update the HTML
+        callAll();
+      });
+
+      deleteBtn.addEventListener('click', function() {
+        // Remove the snippet from the array
+        codeSnippets.splice(index, 1);
+        
+        // Save updated snippets to local storage
+        saveSnippets(codeSnippets);
+        
+        // Update the HTML
+        callAll();
+      });
   });
-});
-
-// remove snippets
-
-function deleteSnippet(){
-
 }
+
+
+// favorite snippets
+
+function favSnippets() {
+  
+}
+

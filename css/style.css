@@ -135,6 +135,7 @@
     left: 0px;
     width: 100%;
     height: auto;
+    z-index: 999;
 }
 
 #add-snippet {
@@ -231,14 +232,14 @@ button[type="submit"]:hover {
     transform: translatey(0%);
 }
 
-#delete-btn {
+.delete-btn {
     background: red;
 }
 
-#fav-btn {
+.fav-btn {
     background: gray;
 }
 
-.true #fav-btn {
+.true .fav-btn {
     background: #7ad87a;
 }
