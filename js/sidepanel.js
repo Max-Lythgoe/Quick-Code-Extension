@@ -91,8 +91,13 @@ newSnippetForm.addEventListener('submit', function(e){
   saveSnippets(codeSnippets);
   
   callAll()
+
+  // reset fields after submission
+newSnippetForm.reset();
   
 });
+
+
 
 // call all snippets and add copy functionality
 function callAll() {

@@ -4,11 +4,11 @@
   }
 
 :root {
-    --style-main: #a70000;
-    --style-sec: #ff0000;
-    --style-tri: #ff5252;
+    --style-main: #1e5631;
+    --style-sec: #4c9a2a;
+    --style-tri: #7ad87a;
     --style-quad: #ffbaba;
-    accent-color: #ff0000;
+    accent-color: #7ad87a;
 
     --shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
@@ -79,13 +79,13 @@
     margin: 0px;
     display: block;
     width: 100%;
-    background: var(--style-tri);
+    background: var(--style-main);
     padding: 10px;
     color: #fff;
 }
 
 .true .code-title-section {
-    background: var(--style-main);
+    background: var(--style-tri);
 }
 
 .code-title {
@@ -157,6 +157,10 @@ input, textarea {
     width: 100%;
 }
 
+textarea {
+    min-height: 200px;
+}
+
 ::placeholder {
     color: #000;
     text-transform: capitalize;
@@ -169,7 +173,7 @@ input[type="checkbox"] {
 }
 
 button[type="submit"] {
-    background: var(--style-sec);
+    background: var(--style-main);
     color: #fff;
     border: 0px;
     border-radius: 10px;
@@ -241,5 +245,5 @@ button[type="submit"]:hover {
 }
 
 .true .fav-btn {
-    background: #7ad87a;
+    background: var(--style-tri);
 }
