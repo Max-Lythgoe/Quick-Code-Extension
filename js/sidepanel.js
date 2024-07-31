@@ -27,13 +27,18 @@ function getCodeBoxesHtml(codeArray) {
       .map(function ({ title, codeCopy, isFavorite }, index) {
         return `
     <div id="code-box-${index}" class="code-box ${isFavorite}">
-    <div class="code-title-section">
-      <p class="code-title">${title}</p>
-      <i class="fa-regular fa-star"></i>
-      <i class="fa-solid fa-star"></i>
+    <div id="code-inner-${index}">
+      <div class="code-title-section">
+        <p class="code-title">${title}</p>
+      </div>
+      <div class="code-snippet-container"><pre class="code-snippet">${escapeHtml(codeCopy)}</pre></div>
+      <div class="copied-overlay">Copied!</div>
+      </div>
+    
+    <div class="btns-container">
+        <button id="fav-btn">❤</button>
+        <button id="delete-btn">✖</button>
     </div>
-    <div class="code-snippet-container"><pre class="code-snippet">${escapeHtml(codeCopy)}</pre></div>
-    <div class="copied-overlay">Copied!</div>
     </div> 
     `;
       })
@@ -65,7 +70,7 @@ function copyCode(code) {
 document.getElementById("container").innerHTML = getCodeBoxesHtml(codeSnippets);
 
 codeSnippets.forEach(({ codeCopy }, index) => {
-    const element = document.getElementById(`code-box-${index}`);
+    const element = document.getElementById(`code-inner-${index}`);
     element.addEventListener('click', function() { 
       copyCode(codeCopy);
 
@@ -111,3 +116,9 @@ newSnippetForm.addEventListener('submit', function(e){
     }, 3000);
   });
 });
+
+// remove snippets
+
+function deleteSnippet(){
+
+}
