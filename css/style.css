@@ -1,16 +1,21 @@
 *, *::before, *::after {
     box-sizing: border-box;
     font-family: "Poppins";
+    color: #fff;
   }
 
 :root {
     --style-main: #1e5631;
     --style-sec: #4c9a2a;
     --style-tri: #7ad87a;
-    --style-quad: #ffbaba;
     accent-color: #7ad87a;
 
-    --shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    --main-gray: #434343;
+    --black: #000;
+}
+
+body {
+    background: var(--black);
 }
 
 .wrap {
@@ -38,11 +43,11 @@
 
 .code-box {
     border-radius: 20px;
-    box-shadow: var(--shadow);
     overflow: hidden;
     cursor: pointer;
     position: relative;
     transition: .5s;
+    background: var(--main-gray);
 }
 
 .code-snippet-container {
@@ -57,7 +62,7 @@
     left: 0px;
     height: 100%;
     width: 100%;
-    background: linear-gradient(0deg, rgb(255 255 255) 0%, rgb(255 255 255 / 0%) 50%);
+    background: linear-gradient(0deg, var(--main-gray) 0%, rgb(255 255 255 / 0%) 50%);
     pointer-events: none;
 }
 
@@ -93,6 +98,7 @@
 }
 
 .copied {
+    box-shadow: #7ad87a 0px 7px 29px 0px!important;
     transition: .3s;
     z-index: 5;
 }
@@ -103,7 +109,7 @@
     left: 0;
     height: 100%;
     width: 100%;
-    background: rgba(255, 255, 255, 0.701);
+    background: rgba(255, 255, 255, 0.4);
     color: #fff;
     text-shadow: 0px 0px 15px rgba(0,0,0,0.5);
     backdrop-filter: blur(5px);
@@ -128,7 +134,7 @@
 /* form */
 
 .add-snippet-container {
-    background: #ededed;
+    background: #272727;
     box-shadow: var(--shadow);
     position: fixed;
     bottom: 0px;
@@ -151,7 +157,7 @@
 input, textarea {
     border-radius: 10px;
     border: 0px;
-    background: #bebebe;
+    background: var(--main-gray);
     padding: 10px;
     font-size: 18px;
     width: 100%;
@@ -162,7 +168,7 @@ textarea {
 }
 
 ::placeholder {
-    color: #000;
+    color: #fff;
     text-transform: capitalize;
 }
 
@@ -188,7 +194,7 @@ button[type="submit"] {
 
 label {
     font-weight: bold;
-    color: black;
+    color: #fff;
     font-size: 18px;
 }
 

@@ -112,13 +112,14 @@ function callAll() {
 
       element.addEventListener('click', function() { 
         copyCode(codeCopy);
-
-        element.classList.add('copied');
+    
+        element.parentElement.classList.add('copied');
     
         setTimeout(() => {
-          element.classList.remove('copied');
+            element.parentElement.classList.remove('copied');
         }, 3000);
-      });
+    });
+    
 
       favBtn.addEventListener('click', function() {
         // Toggle the isFavorite property
