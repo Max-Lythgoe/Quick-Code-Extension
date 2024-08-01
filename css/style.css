@@ -69,7 +69,7 @@ body {
     position: relative;
     transition: .5s;
     background: var(--main-gray);
-    animation: popIn .3s ease-out;
+    animation: popIn 0.3s ease-out;
     animation-fill-mode: forwards;
     opacity: 0;
 }
@@ -135,7 +135,7 @@ body {
     height: 50px;
 }
 
-.true .code-title-section {
+.favorite .code-title-section {
     background: var(--style-tri);
 }
 
@@ -336,7 +336,7 @@ button[type="submit"]:hover {
     background: gray;
 }
 
-.true .fav-btn {
+.favorite .fav-btn {
     background: var(--style-tri);
 }
 

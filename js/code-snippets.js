@@ -15,6 +15,6 @@ export const codeSnippets = [
         codeCopy: `<div>
     <h1>goodbye world</h1>
 </div>`
-    }, 
+    }
     
 ]
