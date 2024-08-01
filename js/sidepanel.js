@@ -1,5 +1,6 @@
 import { codeSnippets as initialCodeSnippets } from "./code-snippets.js";
 const newSnippetForm = document.getElementById('add-snippet');
+const searchBar = document.querySelector('.search-bar');
 
 // Load code snippets from local storage
 function loadSnippets() {
@@ -24,10 +25,10 @@ function getCodeBoxesHtml(codeArray) {
     codeArray.sort((a, b) => b.isFavorite - a.isFavorite);
 
     return codeArray
-      .map(function ({ title, codeCopy, isFavorite }, index) {
+      .map(function ({ id, title, codeCopy, isFavorite }) {
         return `
-    <div id="code-box-${index}" class="code-box ${isFavorite}">
-    <div id="code-inner-${index}">
+    <div id="code-box-${id}" class="code-box ${isFavorite}">
+    <div id="code-inner-${id}">
       <div class="code-title-section">
         <p class="code-title">${title}</p>
       </div>
@@ -36,8 +37,8 @@ function getCodeBoxesHtml(codeArray) {
       </div>
     
     <div class="btns-container">
-        <button id="fav-btn-${index}" class="fav-btn">❤</button>
-        <button id="delete-btn-${index}" class="delete-btn">✖</button>
+        <button id="fav-btn-${id}" class="fav-btn">❤</button>
+        <button id="delete-btn-${id}" class="delete-btn">✖</button>
     </div>
     </div> 
     `;
@@ -97,18 +98,16 @@ newSnippetForm.reset();
   
 });
 
-
-
 // call all snippets and add copy functionality
-function callAll() {
+function callAll(filteredSnippets = codeSnippets) {
   // Update the HTML
-  document.getElementById("container").innerHTML = getCodeBoxesHtml(codeSnippets);
+  document.getElementById("container").innerHTML = getCodeBoxesHtml(filteredSnippets);
   
   // Add event listener for the new snippet
-  codeSnippets.forEach(({ codeCopy }, index) => {
-      const element = document.getElementById(`code-inner-${index}`);
-      const deleteBtn = document.getElementById(`delete-btn-${index}`);
-      const favBtn = document.getElementById(`fav-btn-${index}`);
+  filteredSnippets.forEach(({ id, codeCopy }) => {
+      const element = document.getElementById(`code-inner-${id}`);
+      const deleteBtn = document.getElementById(`delete-btn-${id}`);
+      const favBtn = document.getElementById(`fav-btn-${id}`);
 
       element.addEventListener('click', function() { 
         copyCode(codeCopy);
@@ -122,8 +121,11 @@ function callAll() {
     
 
       favBtn.addEventListener('click', function() {
+        // Find the actual snippet by id
+        const snippet = codeSnippets.find(snippet => snippet.id === id);
+        
         // Toggle the isFavorite property
-        codeSnippets[index].isFavorite = !codeSnippets[index].isFavorite;
+        snippet.isFavorite = !snippet.isFavorite;
         
         // Save updated snippets to local storage
         saveSnippets(codeSnippets);
@@ -133,8 +135,11 @@ function callAll() {
       });
 
       deleteBtn.addEventListener('click', function() {
+        // Find the actual index in the codeSnippets array
+        const actualIndex = codeSnippets.findIndex(snippet => snippet.id === id);
+        
         // Remove the snippet from the array
-        codeSnippets.splice(index, 1);
+        codeSnippets.splice(actualIndex, 1);
         
         // Save updated snippets to local storage
         saveSnippets(codeSnippets);
@@ -145,10 +150,12 @@ function callAll() {
   });
 }
 
-
-// favorite snippets
-
-function favSnippets() {
-  
-}
-
+// Add search functionality
+searchBar.addEventListener('input', function(e) {
+  const searchQuery = e.target.value.toLowerCase();
+  const filteredSnippets = codeSnippets.filter(snippet => 
+    snippet.title.toLowerCase().includes(searchQuery) || 
+    snippet.codeCopy.toLowerCase().includes(searchQuery)
+  );
+  callAll(filteredSnippets);
+});

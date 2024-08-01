@@ -9,8 +9,7 @@
     "128": "images/qc-icon-128.png"
   },
   "background": {
-    "service_worker": "/js/service-worker.js",
-    "scripts": ["/js/code-snippets.js", "/js/sidepanel.js"]
+    "service_worker": "/js/service-worker.js"
   },
   "action": {
     "default_title": "Click to open panel"

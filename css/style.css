@@ -7,8 +7,8 @@
 :root {
     --style-main: #1e5631;
     --style-sec: #4c9a2a;
-    --style-tri: #7ad87a;
-    accent-color: #7ad87a;
+    --style-tri: #64ca64;
+    accent-color: #64ca64;
 
     --main-gray: #434343;
     --black: #000;
@@ -19,9 +19,9 @@ body {
 }
 
 .wrap {
-    max-width: 550px;
+    max-width: 1200px;
     margin-inline: auto;
-    padding-bottom: 400px;
+    padding-bottom: 600px;
 }
 
   .intro-text {
@@ -155,7 +155,7 @@ body {
 }
 
 input, textarea {
-    border-radius: 10px;
+    border-radius: 20px;
     border: 0px;
     background: var(--main-gray);
     padding: 10px;
@@ -165,6 +165,13 @@ input, textarea {
 
 textarea {
     min-height: 200px;
+    scrollbar-width: none;
+}
+
+.search-bar {
+    max-width: 600px;
+    margin-inline: auto;
+    display: block;
 }
 
 ::placeholder {
