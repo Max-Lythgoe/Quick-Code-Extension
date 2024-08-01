@@ -55,7 +55,7 @@ function getCodeBoxesHtml(codeArray) {
     </div> 
     <div id="delete-btn-modal-${id}" class="delete-modal-closed delete-modal">
     <div class="modal-box">
-          <p>Are you sure you want to delete ${title}?</p>
+          <p>Are you sure you want to delete <strong>${title}</strong>?</p>
           <div class="delete-modal-btns">
             <button id="cancel-delete-btn-${id}" class="cancel-delete-btn-in-modal">Cancel</button>
             <button id="delete-btn-${id}" class="delete-btn-in-modal">Delete</button>
