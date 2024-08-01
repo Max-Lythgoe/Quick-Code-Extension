@@ -13,21 +13,32 @@ function saveSnippets(snippets) {
   localStorage.setItem('codeSnippets', JSON.stringify(snippets));
 }
 
-// Initialize code snippets
+// Load the next ID counter from local storage
+function loadNextId() {
+  const storedNextId = localStorage.getItem('nextId');
+  return storedNextId ? parseInt(storedNextId, 10) : initialCodeSnippets.length + 1;
+}
+
+// Save the next ID counter to local storage
+function saveNextId(nextId) {
+  localStorage.setItem('nextId', nextId);
+}
+
+// Initialize code snippets and next ID counter
 let codeSnippets = loadSnippets();
+let nextId = loadNextId();
 
 // Create codeboxes for snippets 
 function getCodeBoxesHtml(codeArray) {
   if (Array.isArray(codeArray)) {
-    console.log(`Array is ${Array.isArray(codeArray)}`);
 
     // Sort the array so that items with isFavorite true come first
     codeArray.sort((a, b) => b.isFavorite - a.isFavorite);
 
     return codeArray
-      .map(function ({ id, title, codeCopy, isFavorite }) {
+      .map(function ({ id, title, codeCopy, isFavorite }, index) {
         return `
-    <div id="code-box-${id}" class="code-box ${isFavorite}">
+    <div id="code-box-${id}" class="code-box ${isFavorite}" style="animation-delay: .${index}s">
     <div id="code-inner-${id}">
       <div class="code-title-section">
         <p class="code-title">${title}</p>
@@ -38,9 +49,19 @@ function getCodeBoxesHtml(codeArray) {
     
     <div class="btns-container">
         <button id="fav-btn-${id}" class="fav-btn">❤</button>
-        <button id="delete-btn-${id}" class="delete-btn">✖</button>
+        <button id="delete-btn-toggle-${id}" class="delete-btn">✖</button>
     </div>
+    
     </div> 
+    <div id="delete-btn-modal-${id}" class="delete-modal-closed delete-modal">
+    <div class="modal-box">
+          <p>Are you sure you want to delete ${title}?</p>
+          <div class="delete-modal-btns">
+            <button id="cancel-delete-btn-${id}" class="cancel-delete-btn-in-modal">Cancel</button>
+            <button id="delete-btn-${id}" class="delete-btn-in-modal">Delete</button>
+          </div>
+      </div>
+    </div>
     `;
       })
       .join("");
@@ -80,7 +101,7 @@ newSnippetForm.addEventListener('submit', function(e){
   const isFavorite = snippetFormData.get('isFavorite') === 'on';
   
   const newSnippet = {
-    id: codeSnippets.length + 1,
+    id: nextId,
     title: snippetTitle,
     isFavorite: isFavorite,
     codeCopy: snippetCode
@@ -91,14 +112,18 @@ newSnippetForm.addEventListener('submit', function(e){
   // Save updated snippets to local storage
   saveSnippets(codeSnippets);
   
+  // Increment and save the next ID counter
+  nextId++;
+  saveNextId(nextId);
+  
   callAll()
 
   // reset fields after submission
-newSnippetForm.reset();
+  newSnippetForm.reset();
   
 });
 
-// call all snippets and add copy functionality
+// call all snippets and add functionality
 function callAll(filteredSnippets = codeSnippets) {
   // Update the HTML
   document.getElementById("container").innerHTML = getCodeBoxesHtml(filteredSnippets);
@@ -107,6 +132,9 @@ function callAll(filteredSnippets = codeSnippets) {
   filteredSnippets.forEach(({ id, codeCopy }) => {
       const element = document.getElementById(`code-inner-${id}`);
       const deleteBtn = document.getElementById(`delete-btn-${id}`);
+      const deleteBtnToggle = document.getElementById(`delete-btn-toggle-${id}`);
+      const deleteBtnModal = document.getElementById(`delete-btn-modal-${id}`);
+      const cancelDeleteBtn = document.getElementById(`cancel-delete-btn-${id}`);
       const favBtn = document.getElementById(`fav-btn-${id}`);
 
       element.addEventListener('click', function() { 
@@ -118,7 +146,6 @@ function callAll(filteredSnippets = codeSnippets) {
             element.parentElement.classList.remove('copied');
         }, 3000);
     });
-    
 
       favBtn.addEventListener('click', function() {
         // Find the actual snippet by id
@@ -132,6 +159,18 @@ function callAll(filteredSnippets = codeSnippets) {
         
         // Update the HTML
         callAll();
+      });
+
+      deleteBtnToggle.addEventListener('click', function() {
+        // Toggle the modal class
+        deleteBtnModal.classList.toggle('delete-modal-closed');
+        deleteBtnModal.classList.toggle('delete-modal-open');
+      });
+
+      cancelDeleteBtn.addEventListener('click', function() {
+        // Close the modal
+        deleteBtnModal.classList.add('delete-modal-closed');
+        deleteBtnModal.classList.remove('delete-modal-open');
       });
 
       deleteBtn.addEventListener('click', function() {

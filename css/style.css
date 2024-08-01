@@ -5,9 +5,9 @@
   }
 
 :root {
-    --style-main: #1e5631;
+    --style-main: #808080;
     --style-sec: #4c9a2a;
-    --style-tri: #64ca64;
+    --style-tri: #55a055;
     accent-color: #64ca64;
 
     --main-gray: #434343;
@@ -16,6 +16,27 @@
 
 body {
     background: var(--black);
+}
+
+.halftone {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(2px at center, #7ad87a, black);
+    background-size: 20px 20px;
+    background-image: linear-gradient(rgb(0 0 0 / 30%) .1em, transparent .1em), linear-gradient(90deg, rgb(0 0 0 / 30%) .1em, transparent .1em);
+    mix-blend-mode: screen;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.halftone::after {
+    background: linear-gradient(0deg, rgb(0 0 0) 30%, rgb(48 48 48) 100%);
+    content: "";
+    display: block;
+    z-index: 50;
+    height: 100%;
+    width: 100%;
+    mix-blend-mode:darken;
 }
 
 .wrap {
@@ -48,6 +69,25 @@ body {
     position: relative;
     transition: .5s;
     background: var(--main-gray);
+    animation: popIn .3s ease-out;
+    animation-fill-mode: forwards;
+    opacity: 0;
+}
+
+.code-box:hover {
+    box-shadow: #ffffff8a 0px 0px 20px 0px!important;
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(.5);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 .code-snippet-container {
@@ -97,7 +137,7 @@ body {
     margin: 0px;
 }
 
-.copied {
+.code-box.copied {
     box-shadow: #7ad87a 0px 7px 29px 0px!important;
     transition: .3s;
     z-index: 5;
@@ -133,6 +173,13 @@ body {
 
 /* form */
 
+.add-title {
+    margin: 0px;
+    background: var(--style-tri);
+    text-align: center;
+    padding: 10px;
+}
+
 .add-snippet-container {
     background: #272727;
     box-shadow: var(--shadow);
@@ -142,6 +189,12 @@ body {
     width: 100%;
     height: auto;
     z-index: 999;
+    transform: translatey(calc(100% - 56px));
+    transition: .8s;
+}
+
+.add-snippet-container:hover, .add-snippet-container:focus, .add-snippet-container:focus-within, .add-snippet-container:focus-visible, .add-snippet-container:active {
+    transform: translatey(0%);
 }
 
 #add-snippet {
@@ -172,6 +225,9 @@ textarea {
     max-width: 600px;
     margin-inline: auto;
     display: block;
+    background: rgba(67, 67, 67, .5);
+    backdrop-filter: blur(2px);
+    border: 1px solid rgba(255,255,255,.2);
 }
 
 ::placeholder {
@@ -259,4 +315,85 @@ button[type="submit"]:hover {
 
 .true .fav-btn {
     background: var(--style-tri);
+}
+
+.delete-modal {
+    height: 100vh;
+    width: 100vw;
+    background: rgba(0,0,0,.5);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 9999;
+    transition: .3s;
+}
+
+.delete-modal-closed {
+    pointer-events: none;
+    opacity: 0;
+}
+
+.delete-modal-open {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.modal-box {
+    display: flex;
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--main-gray);
+    padding: 20px;
+    z-index: 999999;
+    border-radius: 20px;
+    max-width: 300px;
+    width: 100%;
+    text-align: center;
+    flex-direction: column;
+    transition: .5s;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.modal-box p {
+    font-size: 16px;
+}
+
+.delete-modal-closed .modal-box {
+    transform: translate(-50%, -50%) scale(0);
+}
+
+.delete-modal-open .modal-box {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.delete-modal-btns {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.cancel-delete-btn-in-modal {
+    background: #707070;
+    border: 0px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 5px 10px;
+}
+
+.delete-btn-in-modal {
+    background: red;
+    border: 0px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 5px 10px;
 }
