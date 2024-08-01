@@ -187,6 +187,15 @@ function callAll(filteredSnippets = codeSnippets) {
         callAll();
       });
   });
+
+  // Check for all instances of .code-title and wrap in <marquee> if width exceeds 210px
+  document.querySelectorAll('.code-title').forEach(function(codeTitle) {
+    if (codeTitle.offsetWidth > 210) {
+      const marqueeHTML = `<marquee>${codeTitle.innerHTML}</marquee>`;
+      codeTitle.insertAdjacentHTML('beforebegin', marqueeHTML);
+      codeTitle.remove();
+    }
+  });
 }
 
 // Add search functionality

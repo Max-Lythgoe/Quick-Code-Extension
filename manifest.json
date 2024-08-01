@@ -3,6 +3,7 @@
   "name": "Quick Code",
   "version": "1.0",
   "description": "Quick Code",
+  "author": "Max Lythgoe",
   "icons": {
     "16": "images/qc-icon-16.png",
     "48": "images/qc-icon-48.png",
